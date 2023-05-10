@@ -1,0 +1,46 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>Manage Users</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-success" (click)="addUser()">
+                <i class='fas fa-plus-circle'></i><span> ADD</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-striped table-hover table-bordered table-content">
+          <thead>
+            <tr class="center-align">
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>User Name</th>
+              <th>Date Of Birth</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList" class="center-align">
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.dateOfBirth }}</td>
+              <td>{{ user.phoneNumber }}</td>
+              <td>
+                <button type="button" (click)="deleteUserConfirmation(user)" class="btn"><i class='fas fa-trash-alt delete'></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td *ngIf="userList.length == 0" colspan="6">No User Found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
