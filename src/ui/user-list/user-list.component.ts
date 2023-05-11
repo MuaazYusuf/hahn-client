@@ -47,9 +47,9 @@ export class UserListComponent implements OnInit {
   }
 
   async getAllUsers() {
-    this.userService.getUsersList().subscribe((data: any) => {
-      if (data != null && data.body != null) {
-        var resultData = data.body;
+    this.userService.getUsersList().subscribe((response: any) => {
+      if (response != null && (response.data != null || response.data.length != 0)) {
+        var resultData = response.data;
         if (resultData) {
           this.userList = resultData;
         }
@@ -66,7 +66,7 @@ export class UserListComponent implements OnInit {
   }
 
   addUser() {
-    this.router.navigate(['/add']);
+    this.router.navigate(['users/add']);
   }
 
   deleteUserConfirmation(user: any) {
@@ -80,13 +80,10 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(user: any) {
-    this.userService.deleteUser(user.id).subscribe((data: any) => {
-      if (data != null && data.body != null) {
-        var resultData = data.body;
-        if (resultData != null && resultData.isSuccess) {
-          this.toastr.success(resultData.message);
-          this.getAllUsers();
-        }
+    this.userService.deleteUser(user.id).subscribe((response: any) => {
+      if (response != null && response.code != null) {
+        this.toastr.success(response.message);
+        this.getAllUsers();
       }
     },
       (error: any) => { });

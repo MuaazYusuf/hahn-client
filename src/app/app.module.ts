@@ -10,11 +10,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateUserComponent } from 'src/ui/create-user/create-user.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent
+    UserListComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +29,12 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
+  exports: [MatDatepickerModule],
   providers: [],
   bootstrap: [AppComponent]
 })
