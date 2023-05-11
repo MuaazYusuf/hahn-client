@@ -29,7 +29,7 @@ export class AddUserFormValidator extends Validator<User> {
             .emailAddress()
             .withMessage('Invalid email address.');
 
-        this.ruleFor('userName')
+        this.ruleFor('username')
             .notEmpty()
             .withMessage('Username is required.')
             .maxLength(50)

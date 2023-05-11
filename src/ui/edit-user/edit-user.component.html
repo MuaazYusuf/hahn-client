@@ -1,0 +1,65 @@
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4><b>Update User</b></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#" routerLink="/Home" class="btn btn-success back"><i
+                                class='fas fa-arrow-circle-left'></i>
+                            &nbsp;Back</a>
+                    </div>
+                </div>
+            </div>
+            <form #userForm="ngForm">
+                <div class="table-content">
+                    <div class="form-group p-10 row">
+                      <div class="col-sm-3">
+                        <label for="FirstName" class="p-t-b-10">First Name<span class="requiredStar">*</span></label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="firstName" required maxlength="255"
+                          [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel">
+                      </div>
+                    </div>
+                    <div class="form-group p-10 row">
+                      <div class="col-sm-3">
+                        <label for="LastName" class="p-t-b-10">Last Name<span class="requiredStar">*</span></label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="lastName" required maxlength="255" [(ngModel)]="user.lastName"
+                          name="lastName" #lastName="ngModel">
+                      </div>
+                    </div>
+          
+                    <div class="form-group p-10 row">
+                      <div class="col-sm-3">
+                        <label class="p-t-b-10">Phone<span class="requiredStar">*</span></label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="phoneNumber" required maxlength="10"
+                          [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel" pattern="^\d{3}\d{3}\d{4}$">
+                      </div>
+                    </div>
+                    <div class="form-group p-10 row">
+                      <div class="col-sm-3">
+                        <label class="p-t-b-10">Date of birth<span class="requiredStar">*</span></label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="user.dateOfBirth" name="dateOfBirth"
+                          #dateOfBirth="ngModel">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                <div class="table-footer">
+                    <button class="btn btn-success" (click)="editUser(userForm.form.valid)">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
