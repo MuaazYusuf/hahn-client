@@ -11,7 +11,7 @@ import { UserService } from 'src/core/service/user.service';
 export class ViewUserComponent implements OnInit {
 
     userId: any;
-    userDetails: User;
+    userDetails: User = new User();
 
     constructor(private route: ActivatedRoute, public userService: UserService) { }
 
