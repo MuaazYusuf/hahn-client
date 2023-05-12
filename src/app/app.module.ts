@@ -15,13 +15,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EditUserComponent } from 'src/ui/edit-user/edit-user.component';
+import { ViewUserComponent } from 'src/ui/view-user/view-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
     CreateUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    ViewUserComponent
   ],
   imports: [
     BrowserModule,
