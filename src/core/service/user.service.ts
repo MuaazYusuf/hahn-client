@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { User } from '../data/model/user';
+import { AddUserRequest } from '../data/model/add-user.request';
+import { Constants } from '../common/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +12,25 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private baseURL = "https://localhost:7026/api/v1/users";
+  private usersApiURL = Constants.USERS_API_URL;
 
   getUsersList(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.baseURL}`);
+    return this.httpClient.get<User[]>(`${this.usersApiURL}`);
   }
 
-  createUser(user: User): Observable<Object> {
-    return this.httpClient.post(`${this.baseURL}`, user);
+  createUser(user: AddUserRequest): Observable<Object> {
+    return this.httpClient.post(`${this.usersApiURL}`, user);
   }
 
   getUserById(id: number): Observable<User> {
-    return this.httpClient.get<User>(`${this.baseURL}/${id}`);
+    return this.httpClient.get<User>(`${this.usersApiURL}/${id}`);
   }
 
   updateUser(id: number, user: User): Observable<Object> {
-    return this.httpClient.put(`${this.baseURL}/${id}`, user);
+    return this.httpClient.put(`${this.usersApiURL}/${id}`, user);
   }
 
   deleteUser(id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseURL}/${id}`);
+    return this.httpClient.delete(`${this.usersApiURL}/${id}`);
   }
 }

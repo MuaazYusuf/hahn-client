@@ -8,9 +8,10 @@ import { User } from 'src/core/data/model/user';
 import { UserService } from 'src/core/service/user.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
-import { addUserAction } from '../add-user.action';
-import { isSubmittingSelector } from '../types/selector';
-import { UserStateInterface } from '../types/userState.interface';
+import { addUserAction } from '../actions/add-user.action';
+import { isSubmittingSelector } from '../actions/selector';
+import { UserStateInterface } from '../types/user-state.interface';
+import { AddUserRequest } from 'src/core/data/model/add-user.request';
 
 
 
@@ -22,7 +23,7 @@ import { UserStateInterface } from '../types/userState.interface';
 })
 export class CreateUserComponent implements OnInit {
   date: NgbDateStruct;
-  user: User = new User();
+  user: AddUserRequest = new AddUserRequest();
   userForm: FormGroup;
   errors: { [key: string]: string } = {};
   isSubmitting$: Observable<boolean>;
@@ -57,7 +58,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.userForm.valid) {
+    // if (this.userForm.valid) {
       this.user = this.userForm.value;
       this.user.dateOfBirth = new Date(this.userForm.value.dateOfBirth.year, this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day);
       this.store.dispatch(addUserAction(this.userForm.value));
@@ -80,12 +81,11 @@ export class CreateUserComponent implements OnInit {
                 this.errors[fieldName.toLowerCase()] = validationErrorDictionary[fieldName];
               }
             }
-            console.log(this.userForm);
           } else {
             this.toastr.error("Something went wrong!");
           }
         });
-    }
+    // }
   }
 
   goToUserList() {

@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+
 import { User } from 'src/core/data/model/user';
 import { UserService } from 'src/core/service/user.service';
 
@@ -31,16 +32,10 @@ export class EditUserComponent implements OnInit {
     getUserDetailById() {
         this.userService.getUserById(this.userId).subscribe((response: any) => {
             if (response != null && response.data != null) {
-                var resultData = response.data;
+                var resultData : User = response.data;
                 if (resultData) {
-                    this.user.id = resultData.id;
-                    this.user.firstName = resultData.firstName;
-                    this.user.lastName = resultData.lastName;
-                    this.user.email = resultData.email;
-                    this.user.username = resultData.username;
-                    this.user.dateOfBirth = resultData.dateOfBirth;
-                    this.user.phoneNumber = resultData.phoneNumber;
                     resultData.dateOfBirth = new Date(resultData.dateOfBirth);
+                    this.user = resultData
                     this.date = { day: resultData.dateOfBirth.getUTCMonth(), month: resultData.dateOfBirth.getUTCMonth(), year: resultData.dateOfBirth.getFullYear() }
                 }
             }
