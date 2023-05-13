@@ -10,8 +10,6 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgbDatepickerModule, NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ToastrModule } from "ngx-toastr";
 import { UserService } from "src/core/service/user.service";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
@@ -24,7 +22,8 @@ import { HttpClientModule } from "@angular/common/http";
         ViewUserComponent
     ],
     imports: [
-        RouterModule.forChild(routes), MatDatepickerModule,
+        RouterModule.forChild(routes),
+        MatDatepickerModule,
         MatFormFieldModule,
         MatNativeDateModule,
         NgbDatepickerModule,

@@ -35,8 +35,8 @@
               <td>{{ user.dateOfBirth }}</td>
               <td>{{ user.phoneNumber }}</td>
               <td>
-                <a href="#" [routerLink]="['/view/', user.id]" class="btn"><i class='fas fa-eye view'></i></a>
-              <a href="#" [routerLink]="['/edit/', user.id]" class="btn"><i class="fa fa-edit edit"></i></a>
+                <a href="#" [routerLink]="['view/', user.id]" class="btn"><i class='fas fa-eye view'></i></a>
+              <a href="#" [routerLink]="['edit/', user.id]" class="btn"><i class="fa fa-edit edit"></i></a>
                 <button type="button" (click)="deleteUserConfirmation(user)" class="btn"><i class='fas fa-trash-alt delete'></i></button>
               </td>
             </tr>
