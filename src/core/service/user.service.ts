@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { User } from '../data/model/user';
 import { AddUserRequest } from '../data/model/add-user.request';
 import { Constants } from '../common/constants';
@@ -18,8 +18,12 @@ export class UserService {
     return this.httpClient.get<User[]>(`${this.usersApiURL}`);
   }
 
-  createUser(user: AddUserRequest): Observable<Object> {
-    return this.httpClient.post(`${this.usersApiURL}`, user);
+  createUser(user: AddUserRequest): Observable<User> {
+    let s = this.httpClient.post(`${this.usersApiURL}`, user)
+    .pipe(map((response: any) => response));
+    console.log(s);
+    
+    return s;
   }
 
   getUserById(id: number): Observable<User> {

@@ -63,6 +63,8 @@ export class CreateUserComponent implements OnInit {
       this.user.dateOfBirth = new Date(this.userForm.value.dateOfBirth.year, this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day);
       this.store.dispatch(addUserAction(this.userForm.value));
       this.userService.createUser(this.user).subscribe(async (response: any) => {
+        console.log(response);
+        
         if (response != null && response.data != null && response.code === 201) {
           this.toastr.success(response.message);
           setTimeout(() => {
@@ -71,7 +73,8 @@ export class CreateUserComponent implements OnInit {
         }
       },
         async error => {
-
+          console.log(error);
+          
           if (error.error.code === 400) {
             let validationErrorDictionary = error.error.errors;
             this.toastr.error(error.error.message);

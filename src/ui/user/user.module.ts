@@ -15,7 +15,9 @@ import { UserListComponent } from "./user-list/user-list.component";
 import { ViewUserComponent } from "./view-user/view-user.component";
 import { routes } from "./routes";
 import { UserService } from "src/core/service/user.service";
-import { reducers } from "./types/reducers";
+import { reducers } from "./actions/reducers";
+import { EffectsModule } from "@ngrx/effects";
+import { AddUserEffect } from "./effects/add-user.effect";
 
 @NgModule({
     declarations: [
@@ -35,7 +37,8 @@ import { reducers } from "./types/reducers";
         FormsModule,
         CommonModule,
         HttpClientModule,
-        StoreModule.forFeature('user', reducers)
+        StoreModule.forFeature('user', reducers),
+        EffectsModule.forFeature([AddUserEffect])
     ],
     providers: [UserService]
 })

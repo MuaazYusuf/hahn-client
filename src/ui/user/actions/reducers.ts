@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 
-import { UserStateInterface } from "./user-state.interface";
 import { addUserAction } from "./add-user.action";
+import { UserStateInterface } from "../types/user-state.interface";
 
 const initialState: UserStateInterface = {
     isSubmitting: false
