@@ -43,7 +43,7 @@
                 [ngClass]="{'has-error':!userForm.controls['email'].valid && userForm.controls['email'].touched}">
               <div class="alert alert-danger" role="alert"
                 *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">
-                {{errs['email']}}
+                {{errors['email']}}
               </div>
             </div>
 
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="table-footer">
-          <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">Submit</button>
+          <button type="submit" class="btn btn-success" [disabled]="isSubmitting$ | async">Submit</button>
         </div>
       </form>
     </div>
