@@ -19,7 +19,7 @@ import { UserService } from 'src/core/service/user.service';
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">CANCEL</button>
-    <button type="button" ngbAutofocus class="btn btn-success" (click)="modal.close('Ok click')">OK</button>
+    <button type="button" ngbAutofocus class="btn btn-primary" (click)="modal.close('Ok click')">OK</button>
   </div>
   `,
 })

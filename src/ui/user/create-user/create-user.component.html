@@ -7,7 +7,7 @@
             <h4><b>New User</b></h4>
           </div>
           <div class="col-sm-6">
-            <a href="#" routerLink="/" class="btn btn-success back"><i class='fas fa-arrow-circle-left'></i>
+            <a href="#" routerLink="/" class="btn btn btn-primary back"><i class='fas fa-arrow-circle-left'></i>
               Back</a>
           </div>
         </div>
@@ -19,7 +19,7 @@
               <label for="FirstName" class="p-t-b-10">First Name<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="firstName" required maxlength="255" name="firstName"
+              <input type="text" class="form-control" id="firstName" name="firstName"
                 formControlName="firstName">
               <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.firstName">
                 {{formValidationErrors.firstName}}
@@ -31,7 +31,7 @@
               <label for="LastName" class="p-t-b-10">Last Name<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="lastName" required maxlength="255" name="lastName"
+              <input type="text" class="form-control" id="lastName" name="lastName"
                 formControlName="lastName">
               <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.lastName">
                 {{formValidationErrors.lastName}}
@@ -44,7 +44,7 @@
               <label class="p-t-b-10">Email<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="email" required maxlength="255" name="email"
+              <input type="text" class="form-control" id="email" name="email"
                 formControlName="email">
               <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.email">
                 {{formValidationErrors.email}}
@@ -58,9 +58,9 @@
               <label class="p-t-b-10">Username<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="username" required maxlength="255" name="username"
+              <input type="text" class="form-control" id="username" name="username"
                 formControlName="username">
-                <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.username">
+                <div class="alert alert-danger mt-1" role="alert" *ngIf="formValidationErrors.username">
                   {{formValidationErrors.username}}
                 </div>
             </div>
@@ -71,10 +71,10 @@
               <label class="p-t-b-10">Password<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="password" required maxlength="255" name="password"
+              <input type="password" class="form-control" id="password" name="password"
                 formControlName="password">
-                <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.username">
-                  {{formValidationErrors.username}}
+                <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.password">
+                  {{formValidationErrors.password}}
                 </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
               <label class="p-t-b-10">Phone<span class="requiredStar">*</span></label>
             </div>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="phoneNumber" required maxlength="10" name="phoneNumber"
+              <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
                 formControlName="phoneNumber">
                 <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.phoneNumber">
                   {{formValidationErrors.phoneNumber}}
@@ -109,7 +109,7 @@
           </div>
         </div>
         <div class="table-footer">
-          <button type="submit" class="btn btn-success" [disabled]="isSubmitting$ | async">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubmitting$ | async">Submit</button>
         </div>
       </form>
     </div>
