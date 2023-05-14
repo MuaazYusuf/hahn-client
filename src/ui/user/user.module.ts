@@ -14,7 +14,7 @@ import { routes } from "./routes";
 import { UserService } from "src/core/service/user.service";
 import { reducers } from "./actions/reducers";
 import { EffectsModule } from "@ngrx/effects";
-import { AddUserEffect } from "./effects/add-user.effect";
+import { UserEffect } from "./effects/user.effect";
 import { AddUserFormValidator } from "src/core/data/validator/add-user.validators";
 import { UpdateUserFormValidator } from "src/core/data/validator/update-user.validator";
 import { CreateUserComponent } from "./components/create-user/create-user.component";
@@ -41,7 +41,7 @@ import { ViewUserComponent } from "./components/view-user/view-user.component";
         CommonModule,
         HttpClientModule,
         StoreModule.forFeature('user', reducers),
-        EffectsModule.forFeature([AddUserEffect])
+        EffectsModule.forFeature([UserEffect])
     ],
     providers: [UserService, AddUserFormValidator, UpdateUserFormValidator]
 })

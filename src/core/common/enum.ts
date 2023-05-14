@@ -1,5 +1,8 @@
 export enum ActionTypes {
-    ADD_USER = '[User] User',
-    ADD_USER_SUCCESS = '[User] User success',
-    ADD_USER_FAILURE = '[User] User failure',
+    ADD_USER = '[User] Add User',
+    ADD_USER_SUCCESS = '[User] Add User success',
+    ADD_USER_FAILURE = '[User] Add User failure',
+    UPDATE_USER = '[User] Update User',
+    UPDATE_USER_SUCCESS = '[User] Update User success',
+    UPDATE_USER_FAILURE = '[User] Update User failure',
 }

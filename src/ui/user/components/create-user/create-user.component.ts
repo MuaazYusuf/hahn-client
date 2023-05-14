@@ -32,7 +32,7 @@ export class CreateUserComponent implements OnInit {
   isSubmitting$: Observable<boolean>;
   formValidationErrors: ValidationErrors<AddUserRequest> = {};
 
-  constructor(private userService: UserService,
+  constructor(
     private router: Router,
     private toastr: ToastrService,
     private fb: FormBuilder,
@@ -48,7 +48,7 @@ export class CreateUserComponent implements OnInit {
   initializeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
-    this.backendErrors$.subscribe( (backendValidationMessages) => this.backendValidationMessages = backendValidationMessages);
+    this.backendErrors$.subscribe((backendValidationMessages) => this.backendValidationMessages = backendValidationMessages);
   }
 
   initializeForm(): void {
@@ -67,12 +67,12 @@ export class CreateUserComponent implements OnInit {
     this.user = this.userForm.value;
     if (this.userForm.value.dateOfBirth.year && this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day)
       this.user.dateOfBirth = new Date(this.userForm.value.dateOfBirth.year, this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day);
-    this.formValidationErrors = await this.addUserFormValidator.validateAsync(this.user); 
-    // If no validation errors 
+    this.formValidationErrors = await this.addUserFormValidator.validateAsync(this.user);
+    // If no validation errors create user
     if ((Object.keys(this.formValidationErrors).length === 0)) {
       return this.store.dispatch(addUserAction({ request: this.user }));
     }
-    this.toastr.error("Please enter valid inputs");
+    return this.toastr.error("Please enter valid inputs");
   }
 
   goToUserList() {

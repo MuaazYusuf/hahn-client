@@ -1,78 +1,77 @@
 <div class="container-xl">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h4><b>Update User</b></h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="#" routerLink="/" class="btn btn-primary back"><i
-                                class='fas fa-arrow-circle-left'></i>
-                            &nbsp;Back</a>
-                    </div>
-                </div>
-            </div>
-            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <div class="table-content">
-                    <div class="form-group p-10 row">
-                      <div class="col-sm-3">
-                        <label for="FirstName" class="p-t-b-10">First Name<span class="requiredStar">*</span></label>
-                      </div>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="firstName" name="firstName"
-                          formControlName="firstName">
-                        <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.firstName">
-                          {{formValidationErrors.firstName}}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group p-10 row">
-                      <div class="col-sm-3">
-                        <label for="LastName" class="p-t-b-10">Last Name<span class="requiredStar">*</span></label>
-                      </div>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="lastName" name="lastName"
-                          formControlName="lastName">
-                        <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.lastName">
-                          {{formValidationErrors.lastName}}
-                        </div>
-                      </div>
-                    </div>
-          
-                    <div class="form-group p-10 row">
-                      <div class="col-sm-3">
-                        <label class="p-t-b-10">Phone<span class="requiredStar">*</span></label>
-                      </div>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                          formControlName="phoneNumber">
-                          <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.phoneNumber">
-                            {{formValidationErrors.phoneNumber}}
-                          </div>
-                      </div>
-                    </div>
-                    <div class="form-group p-10 row">
-                      <div class="col-sm-3">
-                        <label class="p-t-b-10">Date of birth<span class="requiredStar">*</span></label>
-                      </div>
-                      <div class="col-9">
-                        <div class="input-group">
-                          <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" ngbDatepicker #d="ngbDatepicker"
-                            formControlName="dateOfBirth" [minDate]="{year: 1970, month:1, day: 1}"
-                            [maxDate]="{year: 2023, month:1, day: 1}" />
-                          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
-                        </div>
-                        <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.dateOfBirth">
-                          {{formValidationErrors.dateOfBirth}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="table-footer">
-                    <button class="btn btn-primary" data-toggle="button" type="submit">Submit</button>
-                </div>
-            </form>
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>Update User</b></h4>
+          </div>
+          <div class="col-sm-6">
+            <a href="#" routerLink="/" class="btn btn-primary back"><i class='fas fa-arrow-circle-left'></i>
+              &nbsp;Back</a>
+          </div>
         </div>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="alert alert-danger" role="alert" *ngFor="let error of backendValidationMessages | keyvalue">
+          {{error.value}}
+        </div>
+        <div class="table-content">
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="FirstName" class="p-t-b-10">First Name<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
+              <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.firstName">
+                {{formValidationErrors.firstName}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="LastName" class="p-t-b-10">Last Name<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+              <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.lastName">
+                {{formValidationErrors.lastName}}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label class="p-t-b-10">Phone<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" formControlName="phoneNumber">
+              <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.phoneNumber">
+                {{formValidationErrors.phoneNumber}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label class="p-t-b-10">Date of birth<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-9">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" ngbDatepicker #d="ngbDatepicker"
+                  formControlName="dateOfBirth" [minDate]="{year: 1970, month:1, day: 1}"
+                  [maxDate]="{year: 2023, month:1, day: 1}" />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="formValidationErrors.dateOfBirth">
+                {{formValidationErrors.dateOfBirth}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-footer">
+          <button class="btn btn-primary" data-toggle="button" type="submit">Submit</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

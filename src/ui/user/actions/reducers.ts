@@ -1,7 +1,8 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on } from '@ngrx/store';
 
-import { addUserAction, addUserFailureAction, addUserSuccessAction } from "./add-user.action";
-import { UserStateInterface } from "../types/user-state.interface";
+import { UserStateInterface } from '../types/user-state.interface';
+import { addUserAction, addUserFailureAction, addUserSuccessAction } from './add-user.action';
+import { updateUserAction, updateUserFailureAction, updateUserSuccessAction } from './update-user.action';
 
 const initialState: UserStateInterface = {
     isSubmitting: false,
@@ -27,7 +28,24 @@ const userReducer = createReducer(
         ...state,
         isSubmitting: false,
         validationErrors: action.errors
-    }))
+    })),
+    on(
+        updateUserAction,
+        (state): UserStateInterface => ({
+            ...state,
+            isSubmitting: true,
+            validationErrors: null
+        })),
+    on(updateUserSuccessAction, (state, action): UserStateInterface => ({
+        ...state,
+        isSubmitting: false,
+        user: action.user
+    })),
+    on(updateUserFailureAction, (state, action): UserStateInterface => ({
+        ...state,
+        isSubmitting: false,
+        validationErrors: action.errors
+    })),
 );
 
 export function reducers(state: UserStateInterface, action: Action) {
