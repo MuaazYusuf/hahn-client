@@ -7,6 +7,7 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { User } from "src/core/data/model/user";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class AddUserEffect {
@@ -30,11 +31,12 @@ export class AddUserEffect {
         () => this.actions$.pipe(
             ofType(addUserSuccessAction),
             tap(() => {
-                this.router.navigateByUrl('/')
+                this.router.navigateByUrl('/');
+                this.toastr.success("User added successfully");
             })
         ),
         { dispatch: false }
     );
 
-    constructor(private actions$: Actions, private userService: UserService, private router: Router) { }
+    constructor(private actions$: Actions, private userService: UserService, private router: Router, private toastr: ToastrService) { }
 }

@@ -13,6 +13,9 @@
         </div>
       </div>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="alert alert-danger" role="alert" *ngFor="let error of backendValidationMessages | keyvalue">
+          {{error.value}}
+        </div>
         <div class="table-content">
           <div class="form-group p-10 row">
             <div class="col-sm-3">
