@@ -7,13 +7,13 @@ import { Observable } from 'rxjs';
 import { UserService } from 'src/core/service/user.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
-import { addUserAction } from '../actions/add-user.action';
-import { isSubmittingSelector, validationErrorsSelector } from '../actions/selector';
-import { UserStateInterface } from '../types/user-state.interface';
 import { AddUserRequest } from 'src/core/data/model/add-user.request';
 import { BackendErrorsInterface } from 'src/core/common/backend-errors.interface';
 import { AddUserFormValidator } from 'src/core/data/validator/add-user.validators';
 import { ValidationErrors } from 'fluentvalidation-ts';
+import { addUserAction } from '../../actions/add-user.action';
+import { isSubmittingSelector, validationErrorsSelector } from '../../actions/selector';
+import { UserStateInterface } from '../../types/user-state.interface';
 
 
 
