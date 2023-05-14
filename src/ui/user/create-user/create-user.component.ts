@@ -4,14 +4,16 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
-import { User } from 'src/core/data/model/user';
 import { UserService } from 'src/core/service/user.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { addUserAction } from '../actions/add-user.action';
-import { isSubmittingSelector } from '../actions/selector';
+import { isSubmittingSelector, validationErrorsSelector } from '../actions/selector';
 import { UserStateInterface } from '../types/user-state.interface';
 import { AddUserRequest } from 'src/core/data/model/add-user.request';
+import { BackendErrorsInterface } from 'src/core/common/backend-errors.interface';
+import { AddUserFormValidator } from 'src/core/data/validator/add-user.validators';
+import { ValidationErrors } from 'fluentvalidation-ts';
 
 
 
@@ -25,14 +27,17 @@ export class CreateUserComponent implements OnInit {
   date: NgbDateStruct;
   user: AddUserRequest = new AddUserRequest();
   userForm: FormGroup;
-  errors: { [key: string]: string } = {};
+  backendErrors$: Observable<BackendErrorsInterface | null>;
+  errorMessages: BackendErrorsInterface = {};
   isSubmitting$: Observable<boolean>;
+  formValidationErrors: ValidationErrors<AddUserRequest> = {};
 
   constructor(private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    private store: Store<UserStateInterface>
+    private store: Store<UserStateInterface>,
+    private addUserFormValidator: AddUserFormValidator
   ) {
   }
 
@@ -43,6 +48,7 @@ export class CreateUserComponent implements OnInit {
 
   initializeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
   initializeForm(): void {
@@ -57,37 +63,42 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     // if (this.userForm.valid) {
-      this.user = this.userForm.value;
+    this.user = this.userForm.value;
+    if (this.userForm.value.dateOfBirth.year && this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day)
       this.user.dateOfBirth = new Date(this.userForm.value.dateOfBirth.year, this.userForm.value.dateOfBirth.month - 1, this.userForm.value.dateOfBirth.day);
-      this.store.dispatch(addUserAction(this.userForm.value));
-      this.userService.createUser(this.user).subscribe(async (response: any) => {
-        console.log(response);
-        
-        if (response != null && response.data != null && response.code === 201) {
-          this.toastr.success(response.message);
-          setTimeout(() => {
-            this.goToUserList()
-          }, 500);
-        }
-      },
-        async error => {
-          console.log(error);
-          
-          if (error.error.code === 400) {
-            let validationErrorDictionary = error.error.errors;
-            this.toastr.error(error.error.message);
-            for (var fieldName in validationErrorDictionary) {
-              if (validationErrorDictionary.hasOwnProperty(fieldName)) {
-                this.userForm.controls[fieldName.toLowerCase()].setErrors({ invalid: true });
-                this.errors[fieldName.toLowerCase()] = validationErrorDictionary[fieldName];
-              }
-            }
-          } else {
-            this.toastr.error("Something went wrong!");
-          }
-        });
+    this.formValidationErrors = await this.addUserFormValidator.validateAsync(this.user);
+    if(!this.formValidationErrors) {
+      return this.store.dispatch(addUserAction({ request: this.user }))
+    }
+    this.toastr.error("Please enter valid inputs");
+    // this.userService.createUser(this.user).subscribe({
+    //   next: async (response: any) => {
+    //     if (response != null && response.data != null && response.code === 201) {
+    //       this.toastr.success(response.message);
+    //       setTimeout(() => {
+    //         this.goToUserList()
+    //       }, 500);
+    //     }
+    //   },
+    //   error: async error => {
+    //     if (error.error.code === 400) {
+    //       let validationErrorDictionary: BackendErrorsInterface | null = await lastValueFrom(this.backendErrors$);;
+    //       console.log(validationErrorDictionary);
+    //       this.toastr.error(error.error.message);
+    //       for (var fieldName in validationErrorDictionary) {
+    //         if (validationErrorDictionary.hasOwnProperty(fieldName)) {
+    //           this.userForm.controls[fieldName.toLowerCase()].setErrors({ invalid: true });
+    //           this.errorMessages[fieldName.toLowerCase()] = validationErrorDictionary[fieldName]
+    //         }
+    //       }
+    //     } else {
+    //       this.toastr.error("Something went wrong!");
+    //     }
+    //   }
+    // });
+
     // }
   }
 

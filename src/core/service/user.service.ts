@@ -19,11 +19,8 @@ export class UserService {
   }
 
   createUser(user: AddUserRequest): Observable<User> {
-    let s = this.httpClient.post(`${this.usersApiURL}`, user)
-    .pipe(map((response: any) => response));
-    console.log(s);
-    
-    return s;
+    return this.httpClient.post(`${this.usersApiURL}`, user)
+    .pipe(map((response: any) => response.data));
   }
 
   getUserById(id: number): Observable<User> {

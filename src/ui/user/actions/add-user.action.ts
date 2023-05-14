@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { BackendErrorsInterface } from "src/core/common/backend-errors.interface";
 import { ActionTypes } from "src/core/common/enum";
 import { AddUserRequest } from "src/core/data/model/add-user.request";
 import { User } from "src/core/data/model/user";
@@ -14,5 +15,6 @@ export const addUserSuccessAction = createAction(
 )
 
 export const addUserFailureAction = createAction(
-    ActionTypes.ADD_USER_FAILURE
+    ActionTypes.ADD_USER_FAILURE,
+    props<{errors: BackendErrorsInterface}>()
 )

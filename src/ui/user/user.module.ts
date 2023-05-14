@@ -18,6 +18,7 @@ import { UserService } from "src/core/service/user.service";
 import { reducers } from "./actions/reducers";
 import { EffectsModule } from "@ngrx/effects";
 import { AddUserEffect } from "./effects/add-user.effect";
+import { AddUserFormValidator } from "src/core/data/validator/add-user.validators";
 
 @NgModule({
     declarations: [
@@ -40,6 +41,6 @@ import { AddUserEffect } from "./effects/add-user.effect";
         StoreModule.forFeature('user', reducers),
         EffectsModule.forFeature([AddUserEffect])
     ],
-    providers: [UserService]
+    providers: [UserService, AddUserFormValidator]
 })
 export class UserModule { }

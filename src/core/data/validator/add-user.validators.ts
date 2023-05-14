@@ -1,7 +1,7 @@
-import { Validator } from "fluentvalidation-ts";
-import { User } from "../model/user";
+import { AsyncValidator } from "fluentvalidation-ts";
+import { AddUserRequest } from "../model/add-user.request";
 
-export class AddUserFormValidator extends Validator<User> {
+export class AddUserFormValidator extends AsyncValidator<AddUserRequest> {
     constructor() {
         super();
 
@@ -34,6 +34,8 @@ export class AddUserFormValidator extends Validator<User> {
             .withMessage('Username is required.')
             .maxLength(50)
             .withMessage('Username cannot exceed 50 characters.');
+
+        this.ruleFor('dateOfBirth').notNull().withMessage('Date of birth').must(date => date instanceof Date).withMessage("Date of birth must be valid");
 
         this.ruleFor('phoneNumber')
             .notEmpty()
