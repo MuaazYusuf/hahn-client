@@ -21,7 +21,9 @@ export class AddUserFormValidator extends AsyncValidator<AddUserRequest> {
             .notEmpty()
             .withMessage('Password is required.')
             .length(6, 20)
-            .withMessage('Password must be between 6 and 20 characters.');
+            .withMessage('Password must be between 6 and 20 characters.')
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%+.*_?&#-]{8,15}$/)
+            .withMessage('Invalid password format');
 
         this.ruleFor('email')
             .notEmpty()
@@ -40,7 +42,7 @@ export class AddUserFormValidator extends AsyncValidator<AddUserRequest> {
         this.ruleFor('phoneNumber')
             .notEmpty()
             .withMessage('Phone number is required.')
-            .matches(/^[0-9]{10}$/)
+            .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)
             .withMessage('Invalid phone number.');
     }
 }
