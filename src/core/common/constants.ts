@@ -4,4 +4,6 @@ export class Constants {
     static USERS_API_URL = Constants.API_URL_BASE + 'users';
     static AUTH_API_URL = Constants.API_URL_BASE + 'auth';
     static REFRESH_TOKEN_API_URL = Constants.AUTH_API_URL + 'refresh-token';
+
+    static AUTH_TOKEN = 'token'
 }

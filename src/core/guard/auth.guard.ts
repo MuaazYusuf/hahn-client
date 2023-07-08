@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private jwtHelper: JwtHelperService, private http: HttpClient) { }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem(Constants.AUTH_TOKEN);
 
         if (token && !this.jwtHelper.isTokenExpired(token)) {
             return true;
@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
             });
         });
 
-        localStorage.setItem("token", refreshRes.token);
+        localStorage.setItem(Constants.AUTH_TOKEN, refreshRes.token);
         localStorage.setItem("refreshToken", refreshRes.refreshToken);
         isRefreshSuccess = true;
 
