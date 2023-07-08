@@ -13,13 +13,17 @@ import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { JwtModule } from '@auth0/angular-jwt';
 import { JWT_Module_Options } from 'src/core/common/helper';
+import { HomeComponent } from 'src/ui/home/home.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from 'src/core/common/interceptor/token.interceptor';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +39,16 @@ import { JWT_Module_Options } from 'src/core/common/helper';
     }),
     EffectsModule.forRoot([]),
     JwtModule.forRoot(JWT_Module_Options),
+    HttpClientModule
   ],
   exports: [MatDatepickerModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

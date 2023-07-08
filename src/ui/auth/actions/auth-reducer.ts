@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { LoginStateInterface } from "src/core/common/interface/state/login-state.interface";
-import { loginAction, loginFailureAction, loginSuccessAction } from "./login-action";
+import { loginAction, loginFailureAction, loginSuccessAction, logoutAction } from "./login-action";
 
 const initialState: LoginStateInterface = {
     isAuthenticated: false,
@@ -31,6 +31,15 @@ const authReducer = createReducer(
             ...state,
             isAuthenticated: false,
             errorMessage: action.errorMessage
+        })
+    ),
+    on(
+        logoutAction,
+        (state, action): LoginStateInterface => ({
+            ...state,
+            isAuthenticated: false,
+            loginResponse: null,
+            errorMessage: null,
         })
     )
 )

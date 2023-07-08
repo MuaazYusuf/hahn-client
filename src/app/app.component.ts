@@ -13,6 +13,6 @@ export class AppComponent {
   title = 'Hahn';
 
   HomeClick() {
-    this.router.navigate(['users']);
+    this.router.navigate(['/users']);
   }
 }

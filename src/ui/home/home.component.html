@@ -1,0 +1,15 @@
+<h1>Home Page</h1>
+
+<br>
+<div *ngIf="checkTokenExpiration()" style="color:blue;">
+    <h2>
+        YOU ARE LOGGED IN
+    </h2>
+</div>
+
+<br>
+<ul>
+    <li><a routerLink="/users">Users</a></li>
+    <li *ngIf="!checkTokenExpiration() && !isAuthenticated"><a routerLink="/auth/login">Login</a></li>
+    <li *ngIf="checkTokenExpiration() && isAuthenticated"><a class="logout" (click)="logOut()">Logout</a></li>
+</ul>

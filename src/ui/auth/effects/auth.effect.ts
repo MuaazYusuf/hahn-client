@@ -3,11 +3,12 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/core/service/auth.service";
-import { loginAction, loginFailureAction, loginSuccessAction } from "../actions/login-action";
+import { loginAction, loginFailureAction, loginSuccessAction, logoutAction } from "../actions/login-action";
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { LoginResponse } from "src/core/data/model/response/login.response";
 import { HttpErrorResponse } from "@angular/common/http";
+import { Constants } from "src/core/common/constants";
 
 @Injectable()
 export class AuthEffect {
@@ -45,4 +46,15 @@ export class AuthEffect {
         ),
         { dispatch: false }
     );
+
+    logout$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(logoutAction),
+                tap(() => {
+                    localStorage.removeItem(Constants.AUTH_TOKEN);
+                    localStorage.removeItem(Constants.REFRESH_TOKEN);
+                })
+            );
+        }, { dispatch: false });
 }

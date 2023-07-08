@@ -9,11 +9,10 @@ import { LoginResponse } from "../data/model/response/login.response";
     providedIn: 'root'
 })
 export class AuthService {
-    private authApiURL = Constants.AUTH_API_URL;
     constructor(private httpClient: HttpClient) { }
 
     login(loginRequest: LoginRequest): Observable<LoginResponse> {
-        return this.httpClient.post(`${this.authApiURL}`, loginRequest)
+        return this.httpClient.post(`${Constants.LOGIN_API_URL}`, loginRequest)
             .pipe(map((response: any) => response.data));
     }
 }

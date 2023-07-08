@@ -6,6 +6,8 @@ import { LoginRequest } from "src/core/data/model/login.request";
 import { loginAction } from "../actions/login-action";
 import { LoginStateInterface } from "src/core/common/interface/state/login-state.interface";
 import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { authFeatureSelector } from "../actions/auth-selector";
 
 @Component({
     selector: 'app-login',
@@ -16,15 +18,27 @@ export class LoginComponent implements OnInit {
     invalidLogin: boolean;
     credentials: LoginRequest = { email: '', password: '' };
     loginForm: FormGroup;
-    constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private store: Store<LoginStateInterface>,) { }
+    errorMessage: string | null;
+    getState: Observable<any>;
+    constructor(
+        private router: Router,
+        private http: HttpClient,
+        private fb: FormBuilder,
+        private store: Store<LoginStateInterface>
+    ) {
+        this.initializeForm()
+        this.getState = this.store.select(authFeatureSelector);
+    }
 
     ngOnInit(): void {
-
+        this.getState.subscribe((state) => {
+            this.errorMessage = state.errorMessage;
+        });
     }
 
     initializeForm(): void {
         this.loginForm = this.fb.group({
-            email: ['', Validators.required, Validators.email],
+            email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
         });
     }

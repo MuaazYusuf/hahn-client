@@ -13,15 +13,14 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private jwtHelper: JwtHelperService, private http: HttpClient) { }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const token = localStorage.getItem(Constants.AUTH_TOKEN);
-
+        const token = localStorage.getItem(Constants.AUTH_TOKEN);        
         if (token && !this.jwtHelper.isTokenExpired(token)) {
             return true;
         }
 
         const isRefreshSuccess = await this.tryRefreshingTokens(token);
         if (!isRefreshSuccess) {
-            this.router.navigate(["login"]);
+            this.router.navigate(["auth/login"]);
         }
 
         return isRefreshSuccess;
@@ -29,7 +28,7 @@ export class AuthGuard implements CanActivate {
 
     private async tryRefreshingTokens(token: string | null): Promise<boolean> {
         // Try refreshing tokens using refresh token
-        const refreshToken: string | null = localStorage.getItem("refreshToken");
+        const refreshToken: string | null = localStorage.getItem(Constants.REFRESH_TOKEN);
         if (!token || !refreshToken) {
             return false;
         }
@@ -49,7 +48,7 @@ export class AuthGuard implements CanActivate {
         });
 
         localStorage.setItem(Constants.AUTH_TOKEN, refreshRes.token);
-        localStorage.setItem("refreshToken", refreshRes.refreshToken);
+        localStorage.setItem(Constants.REFRESH_TOKEN, refreshRes.refreshToken);
         isRefreshSuccess = true;
 
         return isRefreshSuccess;
